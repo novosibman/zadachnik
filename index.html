@@ -7,19 +7,24 @@
 </head>
 <body data-ng-app="SolverApp" data-ng-controller="SolverCtrl" data-ng-init="initSolver()" ng-cloak>
 
-    <h1>Задачник</h1>
+<h1>Задачник</h1>
 
-    <div ng-repeat="task in tasks">
-        <p>
-        <div>Сколько будет {{task.x}} {{task.operator}} {{task.y}}?</div>
-        <div>Ответ
-            <input type="text" ng-model="task.result">
-            <input type="button"  value="Проверить" ng-click="verifyTask(task)" ng-show="!task.score"> 
-            <span>{{task.message}}</span>
-        </div>
+<div ng-repeat="task in tasks">
+    <p>
+    <div>Сколько будет {{task.x}} {{task.operator}} {{task.y}}?
+        Ответ
+        <input type="text" ng-model="task.result" ng-show="!task.score" ng-enter="verifyTasks()">
+        <span>{{task.message}}</span>
     </div>
-    </hr>
-    <input type="button"  value="Ещё порешать побольше задач" ng-click="generateMoreTasks()" ng-show="tasks.allDone"> 
-    
+</div>
+<br>
+<input type="button"  value="Проверить" ng-click="verifyTasks()" ng-show="!tasks.allDone"> 
+<div ng-show="tasks.allDone">
+    <hr>
+    <div>{{tasks.message}}</div>
+    <input type="button"  value="Попробовать ещё!" ng-click="generateMoreTasks(0)" ng-show="tasks.errors"> 
+    <input type="button"  value="Хочу ещё больше задач!" ng-click="generateMoreTasks(1)" ng-show="!tasks.errors"> 
+</div>
+
 </body>
 </html>
